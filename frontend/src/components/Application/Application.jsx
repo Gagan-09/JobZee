@@ -25,7 +25,7 @@ const Application = () => {
   const handleApplication = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("company", company);
+    // formData.append("company", company);
     formData.append("name", name);
     formData.append("email", email);
     formData.append("phone", phone);

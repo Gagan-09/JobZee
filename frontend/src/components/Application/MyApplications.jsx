@@ -129,9 +129,9 @@ const JobSeekerCard = ({ element, deleteApplication, openModal }) => {
     <>
       <div className="job_seeker_card">
         <div className="detail">
-          <p>
+          {/* <p>
             <span>Company Name:</span> {element.company}
-          </p>
+          </p> */}
           <p>
             <span>Name:</span> {element.name}
           </p>
