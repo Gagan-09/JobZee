@@ -1,4 +1,4 @@
-**JobZee** - Job Portal Website
+<u>**JobZee** - Job Portal Website</u>
 
 **Team**
 | Sl. No |      Name      | Semester |
@@ -19,3 +19,48 @@
 <!--   <img src="" alt="" width="" height=""> -->
   
 </p>
+
+
+<u>**Backend**</u>
+<p>1. `cd backend`</p>
+<p>2. `npm install`</p>
+<p>4. `npm i bcrypt cloudinary cookie-parser cors dotenv express express-fileupload jsonwebtoken mongoose validator nodemon`</p>
+<p>5. in package.json<br>"type":"module",
+ "scripts": {
+    "start": "node server.js","dev": "nodemon server.js"
+  },</p>
+<p>`npm run dev`</p>
+
+<br><br>
+
+<u>**Frontend**</u>
+<p>1. `cd frontend</p>
+<p>2. `npm build`</p>
+<p>3. `npm run dev`</p>
+<br><br>
+
+**config.env**(backend)<br>
+<p><i>For reference only</i></p>
+<p>PORT = Your port number<br>
+
+CLOUDINARY_CLIENT_NAME= Name in Cloudinary<br>
+CLOUDINARY_CLIENT_API= Cloudinary_api<br>
+
+CLOUDINARY_CLIENT_SECRET=Cloudinary_secret_key<br>
+
+FRONTEND_URL: http://localhost:5173(for vite)<br>
+
+
+MONGO_URI: "Mongo_cluster_link"<br>
+JWT_SECRET_KEY= any_key_<br>
+
+JWT_EXPIRES = no_of_days_to_expire(E.g. 5d)<br>
+
+COOKIE_EXPIRE = ___<br>
+</p>
+
+**.env**(frontend)<br>
+<p><i>For reference only</i></p>
+<p>VITE_REACT_APP_CHAT_API="gemini_api[aistudio.google.com]_you_can_get_ur_api"<br>
+</p>
+
