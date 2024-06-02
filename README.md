@@ -1,4 +1,5 @@
 <u>**JobZee** - Job Portal Website</u>
+<br><br>
 
 **Team**
 | Sl. No |      Name      | Semester |
@@ -8,7 +9,8 @@
 |    3   | Abhishek A C   |     6    |
 |    4   | Swaroop S V    |     6    |
 
-**Tools Used**
+<br><br>
+<h1>**Tools Used**</h1>
 <p align="left">
   <img src="https://www.vectorlogo.zone/logos/mongodb/mongodb-ar21.svg" alt="MongoDB" width="45" height="45">
   <img src="https://www.vectorlogo.zone/logos/expressjs/expressjs-icon.svg" alt="Express JS" width="45" height="45">
@@ -19,9 +21,9 @@
 <!--   <img src="" alt="" width="" height=""> -->
   
 </p>
+<br><br>
 
-
-<u>**Backend**</u>
+<h1><u>**Backend**</u></h1>
 <p>1. `cd backend`</p>
 <p>2. `npm install`</p>
 <p>4. `npm i bcrypt cloudinary cookie-parser cors dotenv express express-fileupload jsonwebtoken mongoose validator nodemon`</p>
@@ -33,13 +35,14 @@
 
 <br><br>
 
-<u>**Frontend**</u>
+<h1><u>**Frontend**</u></h1>
 <p>1. `cd frontend</p>
 <p>2. `npm build`</p>
 <p>3. `npm run dev`</p>
 <br><br>
+<br><br>
 
-**config.env**(backend)<br>
+<h2>**config.env**(backend)<br></h2>
 <p><i>For reference only</i></p>
 <p>PORT = Your port number<br>
 
@@ -58,8 +61,9 @@ JWT_EXPIRES = no_of_days_to_expire(E.g. 5d)<br>
 
 COOKIE_EXPIRE = ___<br>
 </p>
+<br><br><br>
 
-**.env**(frontend)<br>
+<h2>**.env**(frontend)<br></h2>
 <p><i>For reference only</i></p>
 <p>VITE_REACT_APP_CHAT_API="gemini_api[aistudio.google.com]_you_can_get_ur_api"<br>
 </p>
