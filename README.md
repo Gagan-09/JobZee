@@ -10,5 +10,5 @@
 
 **Tools Used**
 <p align="left">
-  <img src="https://www.vectorlogo.zone/logos/reactjs/reactjs-ar21.svg" alt="React" width="45" height="45">
+  <img src="https://www.vectorlogo.zone/logos/reactjs/reactjs-ar21.svg" alt="React" width="50" height="45">
 </p>
