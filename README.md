@@ -1,8 +1,7 @@
 <h1><u>JobZee - Job Portal Website</u></h1>
 <br><br>
 
-<h1>Team</h1>
-<br>
+
 | Sl. No |      Name      | Semester |
 |:-------|:--------------:|---------:|
 |    1   | Gagan M Shetty |     6    |
@@ -40,7 +39,7 @@
 <p>1. cd frontend</p>
 <p>2. npm build</p>
 <p>3. npm run dev</p>
-<br><br>
+<br>
 
 
 <h2>config.env(backend)</h2><br>
@@ -62,7 +61,7 @@ JWT_EXPIRES = no_of_days_to_expire(E.g. 5d)<br>
 
 COOKIE_EXPIRE = ___<br>
 </p>
-<br><br><br>
+<br>
 
 <h2>.env(frontend)</h2><br>
 <p><i>For reference only</i></p>
