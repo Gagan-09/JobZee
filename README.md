@@ -2,6 +2,7 @@
 <br><br>
 
 <h1>Team</h1>
+<br>
 | Sl. No |      Name      | Semester |
 |:-------|:--------------:|---------:|
 |    1   | Gagan M Shetty |     6    |
@@ -9,7 +10,7 @@
 |    3   | Abhishek A C   |     6    |
 |    4   | Swaroop S V    |     6    |
 
-<br><br>
+<br>
 <h1>Tools Used</h1>
 <p align="left">
   <img src="https://www.vectorlogo.zone/logos/mongodb/mongodb-ar21.svg" alt="MongoDB" width="45" height="45">
@@ -21,7 +22,7 @@
 <!--   <img src="" alt="" width="" height=""> -->
   
 </p>
-<br><br>
+<br>
 
 <h1><u>Backend</u></h1>
 <p>1. cd backend</p>
@@ -33,16 +34,16 @@
   },</p>
 <p>npm run dev</p>
 
-<br><br>
+<br>
 
 <h1><u>Frontend</u></h1>
 <p>1. cd frontend</p>
 <p>2. npm build</p>
 <p>3. npm run dev</p>
 <br><br>
-<br><br>
 
-<h2>config.env</h2><h4>(backend)</h4><br>
+
+<h2>config.env(backend)</h2><br>
 <p><i>For reference only</i></p>
 <p>PORT = Your port number<br>
 
@@ -63,7 +64,7 @@ COOKIE_EXPIRE = ___<br>
 </p>
 <br><br><br>
 
-<h2>.env</h2><h4>(frontend)</h4><br>
+<h2>.env(frontend)</h2><br>
 <p><i>For reference only</i></p>
 <p>VITE_REACT_APP_CHAT_API="gemini_api[aistudio.google.com]_you_can_get_ur_api"<br>
 </p>
