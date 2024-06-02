@@ -1,7 +1,7 @@
-<u>**JobZee** - Job Portal Website</u>
+<h1><u>JobZee - Job Portal Website</u></h1>
 <br><br>
 
-**Team**
+<h1>Team</h1>
 | Sl. No |      Name      | Semester |
 |:-------|:--------------:|---------:|
 |    1   | Gagan M Shetty |     6    |
@@ -10,7 +10,7 @@
 |    4   | Swaroop S V    |     6    |
 
 <br><br>
-<h1>**Tools Used**</h1>
+<h1>Tools Used</h1>
 <p align="left">
   <img src="https://www.vectorlogo.zone/logos/mongodb/mongodb-ar21.svg" alt="MongoDB" width="45" height="45">
   <img src="https://www.vectorlogo.zone/logos/expressjs/expressjs-icon.svg" alt="Express JS" width="45" height="45">
@@ -23,26 +23,26 @@
 </p>
 <br><br>
 
-<h1><u>**Backend**</u></h1>
-<p>1. `cd backend`</p>
-<p>2. `npm install`</p>
-<p>4. `npm i bcrypt cloudinary cookie-parser cors dotenv express express-fileupload jsonwebtoken mongoose validator nodemon`</p>
+<h1><u>Backend</u></h1>
+<p>1. cd backend</p>
+<p>2. npm install</p>
+<p>4. npm i bcrypt cloudinary cookie-parser cors dotenv express express-fileupload jsonwebtoken mongoose validator nodemon</p>
 <p>5. in package.json<br>"type":"module",
  "scripts": {
     "start": "node server.js","dev": "nodemon server.js"
   },</p>
-<p>`npm run dev`</p>
+<p>npm run dev</p>
 
 <br><br>
 
-<h1><u>**Frontend**</u></h1>
-<p>1. `cd frontend</p>
-<p>2. `npm build`</p>
-<p>3. `npm run dev`</p>
+<h1><u>Frontend</u></h1>
+<p>1. cd frontend</p>
+<p>2. npm build</p>
+<p>3. npm run dev</p>
 <br><br>
 <br><br>
 
-<h2>**config.env**(backend)<br></h2>
+<h2>config.env</h2><h4>(backend)</h4><br>
 <p><i>For reference only</i></p>
 <p>PORT = Your port number<br>
 
@@ -63,7 +63,7 @@ COOKIE_EXPIRE = ___<br>
 </p>
 <br><br><br>
 
-<h2>**.env**(frontend)<br></h2>
+<h2>.env</h2><h4>(frontend)</h4><br>
 <p><i>For reference only</i></p>
 <p>VITE_REACT_APP_CHAT_API="gemini_api[aistudio.google.com]_you_can_get_ur_api"<br>
 </p>
