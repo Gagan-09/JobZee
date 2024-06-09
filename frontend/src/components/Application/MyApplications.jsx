@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Context } from "../../main";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import ResumeModal from "./ResumeModal";
+import { Context } from "../../main";
 
 const MyApplications = () => {
   const { user } = useContext(Context);
@@ -15,45 +15,55 @@ const MyApplications = () => {
   const navigateTo = useNavigate();
 
   useEffect(() => {
-    try {
-      if (user && user.role === "Employer") {
-        axios
-          .get("http://localhost:4000/api/v1/application/employer/getall", {
-            withCredentials: true,
-          })
-          .then((res) => {
-            setApplications(res.data.applications);
-          });
-      } else {
-        axios
-          .get("http://localhost:4000/api/v1/application/jobseeker/getall", {
-            withCredentials: true,
-          })
-          .then((res) => {
-            setApplications(res.data.applications);
-          });
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
-  }, [isAuthorized]);
+    const fetchApplications = async () => {
+      try {
+        const endpoint =
+          user && user.role === "Employer"
+            ? "employer/getall"
+            : "jobseeker/getall";
 
-  if (!isAuthorized) {
-    navigateTo("/login");
-  }
+        const { data } = await axios.get(
+          `http://localhost:4000/api/v1/application/${endpoint}`,
+          {
+            withCredentials: true,
+          }
+        );
 
-  const deleteApplication = (id) => {
-    try {
-      axios
-        .delete(`http://localhost:4000/api/v1/application/delete/${id}`, {
-          withCredentials: true,
-        })
-        .then((res) => {
-          toast.success(res.data.message);
-          setApplications((prevApplication) =>
-            prevApplication.filter((application) => application._id !== id)
+        // Filter out rejected applications if user is an employer
+        if (user && user.role === "Employer") {
+          setApplications(
+            data.applications.filter((app) => app.status === "Pending")
           );
-        });
+        } else {
+          setApplications(data.applications);
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    };
+
+    if (isAuthorized) {
+      fetchApplications();
+    }
+  }, [isAuthorized, user]);
+
+  useEffect(() => {
+    if (!isAuthorized) {
+      navigateTo("/login");
+    }
+  }, [isAuthorized, navigateTo]);
+
+  const deleteApplication = async (id) => {
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:4000/api/v1/application/delete/${id}`,
+        {
+          withCredentials: true,
+        }
+      );
+
+      toast.success(data.message);
+      setApplications((prev) => prev.filter((app) => app._id !== id));
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -68,6 +78,48 @@ const MyApplications = () => {
     setModalOpen(false);
   };
 
+  const acceptApplication = async (id) => {
+    try {
+      const { data } = await axios.post(
+        `http://localhost:4000/api/v1/application/accept/${id}`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+
+      toast.success(data.message);
+      setApplications((prev) =>
+        prev.map((app) =>
+          app._id === id ? { ...app, status: "Accepted" } : app
+        )
+      );
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
+  const rejectApplication = async (id) => {
+    try {
+      const { data } = await axios.post(
+        `http://localhost:4000/api/v1/application/reject/${id}`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+
+      toast.success(data.message);
+      setApplications((prev) =>
+        prev.map((app) =>
+          app._id === id ? { ...app, status: "Rejected" } : app
+        )
+      );
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
   return (
     <section className="my_applications page">
       {user && user.role === "Job Seeker" ? (
@@ -75,22 +127,17 @@ const MyApplications = () => {
           <h1>
             <center>MY APPLICATIONS</center>
           </h1>
-          {applications.length <= 0 ? (
-            <>
-              {" "}
-              <h4>No Applications Found</h4>{" "}
-            </>
+          {applications.length === 0 ? (
+            <h4>No Applications Found</h4>
           ) : (
-            applications.map((element) => {
-              return (
-                <JobSeekerCard
-                  element={element}
-                  key={element._id}
-                  deleteApplication={deleteApplication}
-                  openModal={openModal}
-                />
-              );
-            })
+            applications.map((element) => (
+              <JobSeekerCard
+                element={element}
+                key={element._id}
+                deleteApplication={deleteApplication}
+                openModal={openModal}
+              />
+            ))
           )}
         </div>
       ) : (
@@ -98,20 +145,18 @@ const MyApplications = () => {
           <center>
             <h3>Applications From Job Seekers</h3>
           </center>
-          {applications.length <= 0 ? (
-            <>
-              <h4>No Applications Found</h4>
-            </>
+          {applications.length === 0 ? (
+            <h4>No Applications Found</h4>
           ) : (
-            applications.map((element) => {
-              return (
-                <EmployerCard
-                  element={element}
-                  key={element._id}
-                  openModal={openModal}
-                />
-              );
-            })
+            applications.map((element) => (
+              <EmployerCard
+                element={element}
+                key={element._id}
+                openModal={openModal}
+                acceptApplication={acceptApplication}
+                rejectApplication={rejectApplication}
+              />
+            ))
           )}
         </div>
       )}
@@ -125,75 +170,101 @@ const MyApplications = () => {
 export default MyApplications;
 
 const JobSeekerCard = ({ element, deleteApplication, openModal }) => {
+  const statusStyle = {
+    color:
+      element.status === "Rejected"
+        ? "red"
+        : element.status === "Accepted"
+        ? "green"
+        : element.status === "Pending"
+        ? "blue"
+        : "black",
+  };
+
   return (
-    <>
-      <div className="job_seeker_card">
-        <div className="detail">
-          {/* <p>
-            <span>Company Name:</span> {element.company}
-          </p> */}
-          <p>
-            <span>Name:</span> {element.name}
-          </p>
-          <p>
-            <span>Email:</span> {element.email}
-          </p>
-          <p>
-            <span>Phone:</span> {element.phone}
-          </p>
-          <p>
-            <span>Address:</span> {element.address}
-          </p>
-          <p>
-            <span>CoverLetter:</span> {element.coverLetter}
-          </p>
-        </div>
-        <div className="resume">
-          <img
-            src={element.resume.url}
-            alt="resume"
-            onClick={() => openModal(element.resume.url)}
-          />
-        </div>
-        <div className="btn_area">
-          <button onClick={() => deleteApplication(element._id)}>
-            Delete Application
-          </button>
-        </div>
+    <div className="job_seeker_card">
+      <div className="detail">
+        <p>
+          <span>Name:</span> {element.name}
+        </p>
+        <p>
+          <span>Email:</span> {element.email}
+        </p>
+        <p>
+          <span>Phone:</span> {element.phone}
+        </p>
+        <p>
+          <span>Address:</span> {element.address}
+        </p>
+        <p>
+          <span>CoverLetter:</span> {element.coverLetter}
+        </p>
+        <p>
+          <span>Status:</span> <span style={statusStyle}>{element.status}</span>
+        </p>
       </div>
-    </>
+      <div className="resume">
+        <img
+          src={element.resume.url}
+          alt="resume"
+          onClick={() => openModal(element.resume.url)}
+        />
+      </div>
+      <div className="btn_area">
+        <button onClick={() => deleteApplication(element._id)}>
+          Delete Application
+        </button>
+      </div>
+    </div>
   );
 };
 
-const EmployerCard = ({ element, openModal }) => {
+const EmployerCard = ({
+  element,
+  openModal,
+  acceptApplication,
+  rejectApplication,
+}) => {
   return (
-    <>
-      <div className="job_seeker_card">
-        <div className="detail">
-          <p>
-            <span>Name:</span> {element.name}
-          </p>
-          <p>
-            <span>Email:</span> {element.email}
-          </p>
-          <p>
-            <span>Phone:</span> {element.phone}
-          </p>
-          <p>
-            <span>Address:</span> {element.address}
-          </p>
-          <p>
-            <span>CoverLetter:</span> {element.coverLetter}
-          </p>
-        </div>
-        <div className="resume">
-          <img
-            src={element.resume.url}
-            alt="resume"
-            onClick={() => openModal(element.resume.url)}
-          />
-        </div>
+    <div className="job_seeker_card">
+      <div className="detail">
+        <p>
+          <span>Name:</span> {element.name}
+        </p>
+        <p>
+          <span>Email:</span> {element.email}
+        </p>
+        <p>
+          <span>Phone:</span> {element.phone}
+        </p>
+        <p>
+          <span>Address:</span> {element.address}
+        </p>
+        <p>
+          <span>CoverLetter:</span> {element.coverLetter}
+        </p>
       </div>
-    </>
+      <div className="resume">
+        <img
+          src={element.resume.url}
+          alt="resume"
+          onClick={() => openModal(element.resume.url)}
+        />
+      </div>
+      <div className="btn_area">
+        <button
+          onClick={() => acceptApplication(element._id)}
+          style={{ marginRight: "10px" }}
+        >
+          Accept
+        </button>
+        <button
+          onClick={() => rejectApplication(element._id)}
+        >
+          Reject
+        </button>
+      </div>
+    </div>
   );
 };
+

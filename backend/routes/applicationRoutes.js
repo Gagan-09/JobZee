@@ -4,6 +4,8 @@ import {
   jobseekerDeleteApplication,
   jobseekerGetAllApplications,
   postApplication,
+  acceptApplication,
+  rejectApplication,
 } from "../controllers/applicationController.js";
 import { isAuthenticated } from "../middlewares/auth.js";
 
@@ -13,5 +15,7 @@ router.post("/post", isAuthenticated, postApplication);
 router.get("/employer/getall", isAuthenticated, employerGetAllApplications);
 router.get("/jobseeker/getall", isAuthenticated, jobseekerGetAllApplications);
 router.delete("/delete/:id", isAuthenticated, jobseekerDeleteApplication);
+router.post("/accept/:id", isAuthenticated, acceptApplication);
+router.post("/reject/:id", isAuthenticated, rejectApplication);
 
 export default router;

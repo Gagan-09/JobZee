@@ -7,7 +7,8 @@ import {
 } from "../controllers/userController.js";
 import { isAuthenticated } from "../middlewares/auth.js";
 
-const router = express.Router();
+const router = express.Router(); 
+// organize routes in an Express application into separate modules or files
 
 router.post("/register", register);
 router.post("/login", login);

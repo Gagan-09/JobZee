@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import validator from "validator";
-
 const applicationSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -59,6 +58,10 @@ const applicationSchema = new mongoose.Schema({
       required: true,
     },
   },
+  status: {
+    type: String,
+    enum: ["Pending", "Accepted", "Rejected"],
+    default: "Pending",
+  },
 });
-
 export const Application = mongoose.model("Application", applicationSchema);

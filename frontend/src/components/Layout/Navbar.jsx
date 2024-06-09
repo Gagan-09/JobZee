@@ -91,6 +91,21 @@ const Navbar = () => {
           ) : (
             <></>
           )}
+          {user && user.role === "Job Seeker" ? (
+            <>
+              <li>
+                <Link
+                  to={"https://resumeworded.com/"}
+                  target="_blank"
+                  onClick={() => setShow(false)}
+                >
+                  ATS SCANNER
+                </Link>
+              </li>
+            </>
+          ) : (
+            <></>
+          )}
 
           <button onClick={handleLogout}>LOGOUT</button>
         </ul>

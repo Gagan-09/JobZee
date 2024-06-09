@@ -1,3 +1,4 @@
+
 import { catchAsyncErrors } from "../middlewares/catchAsyncError.js";
 import ErrorHandler from "../middlewares/error.js";
 import { Application } from "../models/applicationSchema.js";
@@ -115,6 +116,7 @@ export const jobseekerGetAllApplications = catchAsyncErrors(
     });
   }
 );
+
 export const createResume = catchAsyncErrors(async (req, res, next) => {
   const { role } = req.user;
   if (role === "Employer") {
@@ -127,6 +129,40 @@ export const createResume = catchAsyncErrors(async (req, res, next) => {
     success: true,
     message: "Success",
   });
+});
+
+export const acceptApplication = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const application = await Application.findById(req.params.id);
+    if (!application) {
+      return next(new ErrorHandler("Application not found", 404));
+    }
+    application.status = "Accepted";
+    await application.save();
+    console.log(
+      `Application ${req.params.id} accepted. Status: ${application.status}`
+    ); // Added logging
+    res.status(200).json({ message: "Application Accepted!", application });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+});
+
+export const rejectApplication = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const application = await Application.findById(req.params.id);
+    if (!application) {
+      return next(new ErrorHandler("Application not found", 404));
+    }
+    application.status = "Rejected";
+    await application.save();
+    console.log(
+      `Application ${req.params.id} rejected. Status: ${application.status}`
+    ); // Added logging
+    res.status(200).json({ message: "Application Rejected!", application });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
 });
 
 export const jobseekerDeleteApplication = catchAsyncErrors(

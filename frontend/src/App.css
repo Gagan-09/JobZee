@@ -2,12 +2,14 @@
 
 /* Deafault color: #247BA0 */
 /* //chatbot */
+
 .chatbot-wrapper {
   position: fixed;
   bottom: 20px;
   right: 20px;
   z-index: 999;
-  resize: both;
+  /* resize: both; */
+  resize: none;
   overflow: auto;
 }
 
@@ -26,13 +28,22 @@
 }
 /* Resize handle */
 .resize-handle-chat {
-  width: 20px;
+  /* width: 20px;
   height: 20px;
   position: absolute;
   bottom: 0;
   right: 0;
   cursor: nwse-resize; /*Cursor style*/
+  /* background-color: #ccc; */ 
+  .resize-handle-chat {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 0; /* Position at top */
+  left: 0; /* Position at left */
+  cursor: nwse-resize; /* Keep cursor style */
   background-color: #ccc;
+}
 }
 
 .chat-header {
